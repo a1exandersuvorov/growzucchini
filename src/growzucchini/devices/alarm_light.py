@@ -14,5 +14,3 @@ class AlarmLight:
         else:
             self.state = Action.DOWN.value
         await command_queue.put(build_arduino_command(ctrl["type"], ctrl["pin"], self.state))
-
-

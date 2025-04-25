@@ -40,5 +40,3 @@ def processor_dispatcher(sensor_data, command_queue):
         asyncio.create_task(processor.process(sensor_data, command_queue))
     else:
         print(f"No processor found for: {sensor_name}")
-
-
