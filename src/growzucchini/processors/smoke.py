@@ -1,4 +1,4 @@
-from src.growzucchini.processors.registry import processor_registry
+from growzucchini.core.registry import processor_registry
 
 
 @processor_registry("smoke")

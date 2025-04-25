@@ -7,18 +7,18 @@
 #define FAN_PIN 3
 #define ALARM_LIGHT_PIN 4
 #define PUMP_PIN 7
-
 #define BUZZER_PIN 5
 
+#define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]))
+
 DHT dht(DHTPIN, DHTTYPE);
+
 
 // === Structures ===
 struct Control {
   uint8_t pin;
   const char* type;           // "digital", "pwm", "analog"
-  const char* action;         // "cool", "alarm", etc.
-  int rangeMin;
-  int rangeMax;
+  const char* device;         // "cool", "alarm", etc.
 };
 
 struct Sensor {
@@ -38,36 +38,36 @@ float readMoisture()    { return analogRead(A1); }
 
 // === Control objects ===
 // Control tempControls[] = {
-//   {FAN_PIN, "pwm", "cool", 0, 255}
+//   {FAN_PIN, "pwm", "cool"}
 // };
 
 // Control humidityControls[] = {
-//   {PUMP_PIN, "digital", "dry", 0, 1}
+//   {PUMP_PIN, "digital", "dry"}
 // };
 
 Control humidityControls[] = {
-  {ALARM_LIGHT_PIN, "digital", "alarm_light", 0, 1}
+  {ALARM_LIGHT_PIN, "digital", "alarm_light"}
 };
 
 Control smokeControls[] = {
-  {ALARM_LIGHT_PIN, "digital", "alarm_light", 0, 1},
-  // {BUZZER_PIN, "digital", "alarm_sound", 0, 1}
+  {ALARM_LIGHT_PIN, "digital", "alarm_light"},
+  {BUZZER_PIN, "digital", "alarm_sound"}
 };
 
 Control moistureControls[] = {
-  {PUMP_PIN, "digital", "irrigate", 0, 1}
+  {PUMP_PIN, "digital", "irrigate"}
 };
 
 // === Sensor config ===
 Sensor sensors[] = {
-  // {"dt", "Temperature", "C", readTemperature, tempControls, 1},
-  {"dh", "Humidity", "%", readHumidity, humidityControls, 1},
-  // {"smoke", "Smoke", "ppm", readSmoke, smokeControls, 2},
-  // {"moisture", "Soil Moisture", "%", readMoisture, moistureControls, 1}
+  // {"dt", "Temperature", "C", readTemperature, tempControls, ARRAY_SIZE(tempControls)},
+  {"dh", "Humidity", "%", readHumidity, humidityControls, ARRAY_SIZE(humidityControls)},
+  // {"smoke", "Smoke", "ppm", readSmoke, smokeControls, ARRAY_SIZE(smokeControls)},
+  // {"moisture", "Soil Moisture", "%", readMoisture, moistureControls, ARRAY_SIZE(moistureControls)}
 };
 
-const int sensorCount = sizeof(sensors) / sizeof(Sensor);
-const unsigned long interval = 2000;
+const int sensorCount = ARRAY_SIZE(sensors);
+const unsigned long interval = 5000;
 unsigned long lastSend = 0;
 
 // === Setup ===
@@ -108,10 +108,7 @@ void sendSensorData() {
       JsonObject ctrl = ctrlArray.createNestedObject();
       ctrl["pin"] = sensors[i].controls[j].pin;
       ctrl["type"] = sensors[i].controls[j].type;
-      ctrl["action"] = sensors[i].controls[j].action;
-      JsonArray range = ctrl.createNestedArray("range");
-      range.add(sensors[i].controls[j].rangeMin);
-      range.add(sensors[i].controls[j].rangeMax);
+      ctrl["device"] = sensors[i].controls[j].device;
     }
 
     serializeJson(doc, Serial);
