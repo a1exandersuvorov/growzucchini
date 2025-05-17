@@ -1,8 +1,7 @@
 import asyncio
 
-
 class ShutdownHandler:
-    def __init__(self, command_queue, arduino_protocol):
+    def __init__(self, command_queue, arduino_protocol) -> None:
         self.command_queue = command_queue
         self.arduino_protocol = arduino_protocol
         self._shutdown_event = asyncio.Event()

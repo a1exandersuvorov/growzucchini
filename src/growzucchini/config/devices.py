@@ -4,15 +4,16 @@ from dataclasses import dataclass
 class BaseDevice:
     pass
 
-@dataclass
+
+@dataclass(frozen=True)
 class CirculationFan(BaseDevice):
-    f = ""
+    FAN_SPEED_FLOOR = 800
+    FAN_SPEED_CEIL = 1200
 
 
-@dataclass
+@dataclass(frozen=True)
 class ExhaustFan(BaseDevice):
-    FAN_SPEED_FLOOR = 200
-    FAN_SPEED_CEIL = 1800
+    FAN_SPEED_FLOOR = 1000
 
 
 @dataclass
@@ -23,4 +24,3 @@ class Humidifier(BaseDevice):
 @dataclass
 class WaterPump(BaseDevice):
     f = ""
-

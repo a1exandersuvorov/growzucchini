@@ -1,40 +1,53 @@
 import inspect
+import logging
+import os
 import sys
 from dataclasses import dataclass
 from typing import get_type_hints, get_args
 
-from tomlkit import items
-
+import growzucchini.config.devices as items
 from growzucchini.config.devices import BaseDevice
 
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+)
 
+APP_MODE = os.environ.get("APP_MODE", "live")
 
 
 @dataclass
 class BaseConfig:
+    # serial connection
     DEBUG = False
     SERIAL_PORT = "/dev/ttyACM0"
     BAUD_RATE = 9600
-    active_mode: object = None
 
-    # grow circle modes
-    def get_modes(self):
+    # influx db
+    INFLUX_URL = "http://localhost:8086"
+    INFLUX_TOKEN = "generate-your-token"
+    INFLUX_ORG = "arduino"
+    INFLUX_BUCKET = "sensor_data"
+
+    # active growth circle phase
+    growth_phase: object = None
+
+    def get_growth_phases(self):
         current_module = sys.modules[self.__class__.__module__]
         type_hints = get_type_hints(self.__class__)
-        mode_union = type_hints.get("active_mode")
+        phase_union = type_hints.get("growth_phase")
 
-        if not mode_union:
+        if not phase_union:
             return {}
 
-        valid_types = get_args(mode_union)
+        valid_types = get_args(phase_union)
         return {
             cls.__name__: cls
             for _, cls in inspect.getmembers(current_module, inspect.isclass)
             if cls in valid_types
         }
 
-    def switch_mode(self, mode_cls):
-        self.active_mode = mode_cls()
+    def switch_growth_phase(self, phase_cls):
+        self.growth_phase = phase_cls()
 
 
 def get_device_config():

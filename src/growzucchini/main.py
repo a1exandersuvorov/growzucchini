@@ -1,15 +1,15 @@
 import asyncio
 
-from growzucchini import processors, devices
-from growzucchini.connection.serial import connect
+from growzucchini import controllers, devices
 from growzucchini.core.dispatcher import command_dispatcher
+from growzucchini.core.serial import connect
 from growzucchini.core.shutdown import ShutdownHandler
 from growzucchini.core.cli import handle_cli
 
 
 async def main():
     command_queue = asyncio.Queue()
-    processors.load_all_processors()
+    controllers.load_all_processors()
     devices.load_all_devices()
 
     serial_connection = await connect(command_queue)

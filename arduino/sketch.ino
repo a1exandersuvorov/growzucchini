@@ -2,17 +2,24 @@
 #include <DHT.h>
 
 // ==== CONFIGURATION ====
-#define DHTPIN 2
-#define DHTTYPE DHT11
-#define FAN_PIN 3
+#define EXH_FAN_INTERRUPT_PIN 2
+#define EXH_FAN_CONTROL_PIN 3  // PWM 490 Hz
 #define ALARM_LIGHT_PIN 4
-#define PUMP_PIN 7
 #define BUZZER_PIN 5
+#define DHTPIN 7
+#define DHTTYPE DHT11
 
 #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]))
 
 DHT dht(DHTPIN, DHTTYPE);
 
+uint8_t intervalMultiplier = 5;
+
+volatile uint16_t exhFanTachCounter = 0;
+
+void countExhFanTachPulse() {
+  exhFanTachCounter++;
+}
 
 // === Structures ===
 struct Control {
@@ -36,38 +43,42 @@ float readHumidity()    { return dht.readHumidity(); }
 float readSmoke()       { return analogRead(A0); }
 float readMoisture()    { return analogRead(A1); }
 
+float readExhFanRPM() {
+  noInterrupts();
+  uint16_t count = exhFanTachCounter;
+  exhFanTachCounter = 0;
+  interrupts();
+  return (count * 60.0) / 2.0 / intervalMultiplier;  // 2 pulses per revolution;
+}
+
 // === Control objects ===
-// Control tempControls[] = {
-//   {FAN_PIN, "pwm", "cool"}
+Control alarmLight = {ALARM_LIGHT_PIN, "digital", "alarm_light"};
+Control exhaustFan = {EXH_FAN_CONTROL_PIN, "analog", "exhaust_fan"};
+
+Control tempControls[] = {exhaustFan};
+Control humidityControls[] = {alarmLight};
+Control exhFanSpeedControls[] = {exhaustFan};
+
+// Control smokeControls[] = {
+//   {ALARM_LIGHT_PIN, "digital", "alarm_light"},
+//   {BUZZER_PIN, "digital", "alarm_sound"}
 // };
 
-// Control humidityControls[] = {
-//   {PUMP_PIN, "digital", "dry"}
+// Control moistureControls[] = {
+//   {PUMP_PIN, "digital", "irrigate"}
 // };
-
-Control humidityControls[] = {
-  {ALARM_LIGHT_PIN, "digital", "alarm_light"}
-};
-
-Control smokeControls[] = {
-  {ALARM_LIGHT_PIN, "digital", "alarm_light"},
-  {BUZZER_PIN, "digital", "alarm_sound"}
-};
-
-Control moistureControls[] = {
-  {PUMP_PIN, "digital", "irrigate"}
-};
 
 // === Sensor config ===
 Sensor sensors[] = {
-  // {"dt", "Temperature", "C", readTemperature, tempControls, ARRAY_SIZE(tempControls)},
+  {"dt", "Temperature", "C", readTemperature, tempControls, ARRAY_SIZE(tempControls)},
   {"dh", "Humidity", "%", readHumidity, humidityControls, ARRAY_SIZE(humidityControls)},
+  {"exh", "Exhaust Fan Speed", "rpm", readExhFanRPM, exhFanSpeedControls, ARRAY_SIZE(exhFanSpeedControls)}
   // {"smoke", "Smoke", "ppm", readSmoke, smokeControls, ARRAY_SIZE(smokeControls)},
   // {"moisture", "Soil Moisture", "%", readMoisture, moistureControls, ARRAY_SIZE(moistureControls)}
 };
 
 const int sensorCount = ARRAY_SIZE(sensors);
-const unsigned long interval = 5000;
+const unsigned long interval = 1000 * intervalMultiplier;
 unsigned long lastSend = 0;
 
 // === Setup ===
@@ -79,6 +90,10 @@ void setup() {
       pinMode(sensors[i].controls[j].pin, OUTPUT);
     }
   }
+  attachInterrupt(digitalPinToInterrupt(EXH_FAN_INTERRUPT_PIN), countExhFanTachPulse, FALLING);
+  analogWrite(EXH_FAN_CONTROL_PIN, 0);
+//   delay(5000);
+//   analogWrite(EXH_FAN_CONTROL_PIN, 255);
 }
 
 // === Loop ===
@@ -170,7 +185,8 @@ void handleSerialCommands() {
 // === Error helper ===
 void sendError(const char* msg) {
   StaticJsonDocument<128> doc;
-  doc["error"] = msg;
+  doc["sensor"] = "error";
+  doc["value"] = msg;
   serializeJson(doc, Serial);
   Serial.println();
 }

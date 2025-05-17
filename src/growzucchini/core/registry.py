@@ -1,7 +1,7 @@
 from enum import Enum
 
 DEVICE_REGISTRY = {}
-PROCESSOR_REGISTRY = {}
+CONTROLLER_REGISTRY = {}
 
 
 def device_registry(name):
@@ -12,14 +12,18 @@ def device_registry(name):
     return decorator
 
 
-def processor_registry(name):
+def controller_registry(name):
     def decorator(cls):
-        PROCESSOR_REGISTRY[name] = cls()
+        CONTROLLER_REGISTRY[name] = cls()
         return cls
 
     return decorator
 
 
 class Action(Enum):
-    UP = 1
-    DOWN = 0
+    """Action defines the response to a sensor measurement.
+    For example, if the temperature is too high, the appropriate action would be Action.DOWN.
+    """
+
+    UP = 0
+    DOWN = 1

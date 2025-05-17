@@ -6,7 +6,8 @@ authors = [
     { name = "Alexander Suvorov", email = "hi.alexsuv@gmail.com" }
 ]
 dependencies = [
-    "pyserial-asyncio>=0.6"
+    "pyserial-asyncio>=0.6",
+    "influxdb-client (>=1.42.0,<2.0.0)"
 ]
 
 [tool.poetry]
@@ -14,6 +15,7 @@ license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.12"
+influxdb-client = "^1.42.0"
 
 [build-system]
 requires = ["poetry-core"]

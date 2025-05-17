@@ -1,47 +1,61 @@
 import asyncio
+from asyncio import BaseTransport, Queue
+from typing import Any
+
 import serial_asyncio
+from serial_asyncio import SerialTransport
 
 from growzucchini.config import config
-from growzucchini.utils.json_util import load_json
-from growzucchini.core.dispatcher import processor_dispatcher
+from growzucchini.config.base import APP_MODE
+from growzucchini.core.dispatcher import controller_dispatcher
+from growzucchini.core.utils.command_util import get_sensor_data
 
 
 class ArduinoProtocol(asyncio.Protocol):
-    def __init__(self, command_queue):
+    def __init__(self, command_queue: Queue):
         self.command_queue = command_queue
         self.transport = None
         self.buffer = ""  # Buffer to store incoming data
 
-    def data_received(self, data):
-        self.buffer += data.decode()
+    def data_received(self, data: bytes) -> None:
+        if APP_MODE == "sensor_simulation":
+            return
+
+        self.buffer += data.decode("utf-8", errors="ignore")
 
         if "\n" in self.buffer:
             lines = self.buffer.split("\n")
             for line in lines[
                 :-1
             ]:  # Process all lines except the last one (partial data)
-                sensor_data = load_json(line.strip())
-                if sensor_data:
-                    if "error" in sensor_data:
-                        print(f"Arduino error: {sensor_data}")
-                    else:
-                        processor_dispatcher(sensor_data, self.command_queue)
+                striped_line = line.strip()
+                if APP_MODE == "arduino_debug":
+                    print(f"Debug mode: {striped_line}")
+                else:
+                    sensor_data = get_sensor_data(striped_line)
+                    if sensor_data:
+                        if sensor_data.sensor == "error":
+                            print(f"Arduino error: {sensor_data.value}")
+                        else:
+                            controller_dispatcher(sensor_data, self.command_queue)
+
             self.buffer = lines[-1]  # Keep the last partial line (if any) in the buffer
 
         if self.buffer and self.buffer.endswith("\n"):
             self.buffer = ""
 
-    def connection_made(self, transport):
+    def connection_made(self, transport: BaseTransport) -> None:
         self.transport = (
             transport  # The transport object represents the serial connection
         )
         print("Connected to Arduino")
 
-    def connection_lost(self, exc):
+    # TODO: reconnect if lost
+    def connection_lost(self, exc: Exception | None) -> None:
         print("Connection lost", exc)
         asyncio.get_event_loop().stop()
 
-    async def send_command(self, command):
+    async def send_command(self, command: str) -> None:
         """Send a command to Arduino."""
         if command and self.transport:
             print(f"Sending command to Arduino: {command}")
@@ -50,7 +64,7 @@ class ArduinoProtocol(asyncio.Protocol):
             print("Empty command ignored.")
 
 
-async def connect(command_queue):
+async def connect(command_queue: Queue) -> tuple[SerialTransport, Any]:
     """Establish the serial connection to Arduino."""
     loop = asyncio.get_running_loop()
     serial_connection = await serial_asyncio.create_serial_connection(

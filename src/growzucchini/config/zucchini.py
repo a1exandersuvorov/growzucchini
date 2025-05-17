@@ -4,10 +4,9 @@ from typing import Union
 from growzucchini.config.base import BaseConfig
 
 
-@dataclass
+@dataclass(frozen=True)
 class Germination:
-    TEMP_FLOOR = 24
-    TEMP_CEIL = 30
+    TEMP_MIDDLE = 27.0  # 24-30
 
     HUM_FLOOR = 70
     HUM_CEIL = 80
@@ -19,10 +18,9 @@ class Germination:
     SOIL_PH_CEIL = 6.8
 
 
-@dataclass
+@dataclass(frozen=True)
 class Seedling:
-    TEMP_FLOOR = 22
-    TEMP_CEIL = 28
+    TEMP_MIDDLE = 25.0 # 22-28
 
     HUM_FLOOR = 65
     HUM_CEIL = 75
@@ -34,10 +32,9 @@ class Seedling:
     SOIL_PH_CEIL = 6.8
 
 
-@dataclass
+@dataclass(frozen=True)
 class Vegetative:
-    TEMP_FLOOR = 22
-    TEMP_CEIL = 28
+    TEMP_MIDDLE = 25.0 # 22-28
 
     HUM_FLOOR = 60
     HUM_CEIL = 70
@@ -49,10 +46,9 @@ class Vegetative:
     SOIL_PH_CEIL = 7.0
 
 
-@dataclass
+@dataclass(frozen=True)
 class Flowering:
-    TEMP_FLOOR = 22
-    TEMP_CEIL = 26
+    TEMP_MIDDLE = 24.0  # 22-26
 
     HUM_FLOOR = 50
     HUM_CEIL = 60
@@ -64,10 +60,9 @@ class Flowering:
     SOIL_PH_CEIL = 7.0
 
 
-@dataclass
+@dataclass(frozen=True)
 class LateGrowth:
-    TEMP_FLOOR = 22
-    TEMP_CEIL = 26
+    TEMP_MIDDLE = 24.0  # 22-26
 
     HUM_FLOOR = 45
     HUM_CEIL = 60
@@ -84,4 +79,4 @@ GrowCircleConfigType = Union[Germination, Seedling, Vegetative, Flowering, LateG
 
 @dataclass
 class Zucchini(BaseConfig):
-    active_mode: GrowCircleConfigType = field(default_factory=Germination)
+    growth_phase: GrowCircleConfigType = field(default_factory=Germination)

@@ -1,20 +1,32 @@
 import asyncio
 import json
+from asyncio import Queue
 
-from growzucchini.utils.json_util import build_arduino_command
+from growzucchini.core.dispatcher import controller_dispatcher
+from growzucchini.core.utils.command_util import build_arduino_command, get_sensor_data
 
 
-async def handle_cli(command_queue):
+async def handle_cli(command_queue: Queue) -> None:
     while True:
         raw_input = await asyncio.to_thread(input, ">>> ")  # Example: digital 4 1
 
-        if raw_input.startswith("mode"):
+        # Setting growth phases
+        if raw_input.startswith("phase"):
             _, mode_name = raw_input.strip().split(maxsplit=1)
-            await command_queue.put(json.dumps({"command": "mode", "name": mode_name}))
+            await command_queue.put(json.dumps({"command": "phase", "name": mode_name}))
             continue
-        elif raw_input.strip() == "shutdown":
-            await command_queue.put(json.dumps({"command": "shutdown"}))
+        elif raw_input.strip() == "exit":
+            await command_queue.put(json.dumps({"command": "exit"}))
             return
+        # Sensor simulation
+        # example:
+        # {"sensor": "exh", "label": "Exhaust Fan Speed", "value": 0, "unit": "rpm", "controls": [{"pin": 3, "type": "analog", "device": "exhaust_fan"}]}
+        # {"sensor": "dt", "label": "Temperature", "value": 25.0, "unit": "C", "controls": [{"pin": 3, "type": "analog", "device": "exhaust_fan"}]}
+        elif raw_input.startswith("sim"):
+            _, simulated_signal = raw_input.strip().split(maxsplit=1)
+            sensor_data = get_sensor_data(simulated_signal)
+            controller_dispatcher(sensor_data, command_queue)
+            continue
 
         try:
             parts = raw_input.strip().split()

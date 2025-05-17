@@ -1,7 +1,9 @@
 import asyncio
+from asyncio import Queue
 
 from growzucchini.core.registry import device_registry, Action
-from growzucchini.utils.json_util import build_arduino_command
+from growzucchini.core.sensor_data import Control
+from growzucchini.core.utils.command_util import build_arduino_command
 
 
 @device_registry("alarm_light")
@@ -10,7 +12,7 @@ class AlarmLight:
         self.state = 0
         self._lock = asyncio.Lock()
 
-    async def command(self, action, ctrl, command_queue):
+    async def __call__(self, action: Action, ctrl: Control, command_queue: Queue) -> None:
         async with self._lock:
             if self.state == action.value:
                 return
@@ -18,4 +20,4 @@ class AlarmLight:
                 self.state = action.value
             else:
                 self.state = Action.DOWN.value
-            await command_queue.put(build_arduino_command(ctrl["type"], ctrl["pin"], self.state))
+            await command_queue.put(build_arduino_command(ctrl.type, ctrl.pin, self.state))
