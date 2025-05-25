@@ -20,8 +20,8 @@ async def handle_cli(command_queue: Queue) -> None:
             return
         # Sensor simulation
         # example:
-        # {"sensor": "exh", "label": "Exhaust Fan Speed", "value": 0, "unit": "rpm", "controls": [{"pin": 3, "type": "analog", "device": "exhaust_fan"}]}
-        # {"sensor": "dt", "label": "Temperature", "value": 25.0, "unit": "C", "controls": [{"pin": 3, "type": "analog", "device": "exhaust_fan"}]}
+        # {"sensor": "exh", "label": "Exhaust Fan Speed", "value": 0, "unit": "rpm", "controls": [{"pin": 9, "type": "analog", "device": "exhaust_fan"}]}
+        # {"sensor": "dt", "label": "Temperature", "value": 25.0, "unit": "C", "controls": [{"pin": 9, "type": "analog", "device": "exhaust_fan"}]}
         elif raw_input.startswith("sim"):
             _, simulated_signal = raw_input.strip().split(maxsplit=1)
             sensor_data = get_sensor_data(simulated_signal)
