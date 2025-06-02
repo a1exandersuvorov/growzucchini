@@ -15,15 +15,13 @@ struct SensorEntry {
 
 class HardwareRegistry {
 public:
-    static const ControlEntry* getAllControls();
+    static const ControlEntry *getAllControls();
     static Control *getControlByPin(uint8_t pin);
-
-    static const SensorEntry* getAllSensors();
+    static const SensorEntry *getAllSensors();
     static size_t getSensorCount();
 
 private:
     static const ControlEntry controlArray[];
-
     static const SensorEntry sensorArray[];
     static const size_t sensorArraySize;
 };

@@ -10,7 +10,6 @@ public:
                          size_t controlCount);
 
     void begin() override;
-
     float read() override;
 
 private:
