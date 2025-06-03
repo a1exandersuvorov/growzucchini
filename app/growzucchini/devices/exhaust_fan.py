@@ -2,7 +2,7 @@ import asyncio
 from asyncio import Queue
 from functools import singledispatchmethod
 
-from growzucchini.config.base import get_device_config
+from growzucchini.config.base import get_hardware_config
 from growzucchini.core.registry import device_registry, Action
 from growzucchini.core.sensor_data import Control, State
 from growzucchini.core.utils.command_util import build_arduino_command
@@ -13,10 +13,7 @@ class ExhaustFan:
     def __init__(self):
         self.current_rpm_idx = 0
         self.rpm_threshold_idx = 0
-
         self.rpm_threshold_determined = False
-        self.rpm_deficit = self.fan_speed_floor
-
         self._lock = asyncio.Lock()
 
     @singledispatchmethod
@@ -52,13 +49,11 @@ class ExhaustFan:
         if not self.rpm_threshold_determined:
             async with self._lock:
                 if not self.rpm_threshold_determined:
-                    pivot = abs(self.fan_speed_floor - state.value)
-                    if self.rpm_deficit == 0 or (state.value != 0 and self.rpm_deficit <= pivot):
+                    if state.value >= self.fan_speed_floor:
                         self.rpm_threshold_determined = True
                         print(f"RPM threshold found. idx: {self.rpm_threshold_idx}")
                         return
                     else:
-                        self.rpm_deficit = pivot
                         self.rpm_threshold_idx += 1
                         self.current_rpm_idx = self.rpm_threshold_idx
                         await command_queue.put(
@@ -89,4 +84,4 @@ class ExhaustFan:
 
     @property
     def fan_speed_floor(self):
-        return get_device_config().get("ExhaustFan").FAN_SPEED_FLOOR
+        return get_hardware_config().get("ExhaustFan").FAN_SPEED_FLOOR

@@ -18,8 +18,6 @@ class ArduinoProtocol(asyncio.Protocol):
         self.buffer = ""  # Buffer to store incoming data
 
     def data_received(self, data: bytes) -> None:
-        if APP_MODE == "sensor_simulation":
-            return
 
         self.buffer += data.decode("utf-8", errors="ignore")
 
