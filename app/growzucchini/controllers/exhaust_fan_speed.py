@@ -4,7 +4,7 @@ from growzucchini.core.registry import DEVICE_REGISTRY, controller_registry
 from growzucchini.core.sensor_data import SensorData, State
 
 
-@controller_registry("exh")
+@controller_registry("ef")
 class ExhaustFanSpeedController:
     async def __call__(self, sensor_data: SensorData, command_queue: Queue) -> None:
         try:

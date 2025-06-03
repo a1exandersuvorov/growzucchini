@@ -3,7 +3,7 @@ import json
 from asyncio import Queue
 
 from growzucchini.config import config
-from growzucchini.core.metrics.influxdb_client import influx_ingestion
+from growzucchini.core.metrics.influxdb_publisher import influx_ingestion
 from growzucchini.core.registry import CONTROLLER_REGISTRY
 from growzucchini.core.sensor_data import SensorData
 

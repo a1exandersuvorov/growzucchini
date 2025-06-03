@@ -5,8 +5,8 @@ import sys
 from dataclasses import dataclass
 from typing import get_type_hints, get_args
 
-import growzucchini.config.devices as items
-from growzucchini.config.devices import BaseDevice
+import growzucchini.config.hardware as items
+from growzucchini.config.hardware import Hardware
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
@@ -50,9 +50,9 @@ class BaseConfig:
         self.growth_phase = phase_cls()
 
 
-def get_device_config():
+def get_hardware_config():
     return {
         cls.__name__: cls
         for _, cls in inspect.getmembers(items, inspect.isclass)
-        if issubclass(cls, BaseDevice) and cls is not BaseDevice
+        if issubclass(cls, Hardware) and cls is not Hardware
     }
