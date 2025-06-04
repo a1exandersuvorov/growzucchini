@@ -10,3 +10,7 @@ GrowZucchini is a modular automation system for indoor plant environments, built
 - Dockerized Deployment: Python app and InfluxDB run in isolated containers for portability and stability.
 
 Whether you're automating a grow box, greenhouse, or hydroponic setup, GrowZucchini gives you real-time insights and control over your plant's environment.
+
+## Project Structure
+- `app/`: Python application (`growzucchini`) that communicates with embedded devices, logs data to InfluxDB, and controls actuators.
+- `arduino/`: PlatformIO-based firmware for Arduino-compatible boards, responsible for reading sensors and receiving control commands.
