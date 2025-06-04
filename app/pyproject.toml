@@ -1,21 +1,18 @@
-[project]
+[tool.poetry]
 name = "growzucchini"
 version = "0.1.0"
 description = "Automated plant growth controller"
-authors = [
-    { name = "Alexander Suvorov", email = "hi.alexsuv@gmail.com" }
-]
-dependencies = [
-    "pyserial-asyncio>=0.6",
-    "influxdb-client (>=1.42.0,<2.0.0)"
-]
-
-[tool.poetry]
+authors = ["Alexander Suvorov <hi.alexsuv@gmail.com>"]
+packages = [{ include = "growzucchini", from = "src" }]
 license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.12"
 influxdb-client = "^1.42.0"
+pyserial-asyncio = "^0.6"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0"
 
 [build-system]
 requires = ["poetry-core"]
