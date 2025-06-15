@@ -6,13 +6,14 @@ from growzucchini.config.base import BaseConfig
 
 @dataclass(frozen=True)
 class Germination:
-    TEMP_MIDDLE = 27.0  # 24-30
+    TEMP_FLOOR = 24.0
+    TEMP_CEIL = 30.0
 
-    HUM_FLOOR = 70
-    HUM_CEIL = 80
+    HUM_FLOOR = 70.0
+    HUM_CEIL = 80.0
 
-    SOIL_MOISTURE_FLOOR = 35
-    SOIL_MOISTURE_CEIL = 45
+    SOIL_MOISTURE_FLOOR = 35.0
+    SOIL_MOISTURE_CEIL = 45.0
 
     SOIL_PH_FLOOR = 6.0
     SOIL_PH_CEIL = 6.8
@@ -20,13 +21,14 @@ class Germination:
 
 @dataclass(frozen=True)
 class Seedling:
-    TEMP_MIDDLE = 25.0 # 22-28
+    TEMP_FLOOR = 22.0
+    TEMP_CEIL = 28.0
 
-    HUM_FLOOR = 65
-    HUM_CEIL = 75
+    HUM_FLOOR = 65.0
+    HUM_CEIL = 75.0
 
-    SOIL_MOISTURE_FLOOR = 30
-    SOIL_MOISTURE_CEIL = 40
+    SOIL_MOISTURE_FLOOR = 30.0
+    SOIL_MOISTURE_CEIL = 40.0
 
     SOIL_PH_FLOOR = 6.0
     SOIL_PH_CEIL = 6.8
@@ -34,13 +36,14 @@ class Seedling:
 
 @dataclass(frozen=True)
 class Vegetative:
-    TEMP_MIDDLE = 25.0 # 22-28
+    TEMP_FLOOR = 22.0
+    TEMP_CEIL = 28.0
 
-    HUM_FLOOR = 60
-    HUM_CEIL = 70
+    HUM_FLOOR = 60.0
+    HUM_CEIL = 70.0
 
-    SOIL_MOISTURE_FLOOR = 25
-    SOIL_MOISTURE_CEIL = 35
+    SOIL_MOISTURE_FLOOR = 25.0
+    SOIL_MOISTURE_CEIL = 35.0
 
     SOIL_PH_FLOOR = 6.0
     SOIL_PH_CEIL = 7.0
@@ -48,13 +51,14 @@ class Vegetative:
 
 @dataclass(frozen=True)
 class Flowering:
-    TEMP_MIDDLE = 24.0  # 22-26
+    TEMP_FLOOR = 22.0
+    TEMP_CEIL = 26.0
 
-    HUM_FLOOR = 50
-    HUM_CEIL = 60
+    HUM_FLOOR = 50.0
+    HUM_CEIL = 60.0
 
-    SOIL_MOISTURE_FLOOR = 25
-    SOIL_MOISTURE_CEIL = 30
+    SOIL_MOISTURE_FLOOR = 25.0
+    SOIL_MOISTURE_CEIL = 30.0
 
     SOIL_PH_FLOOR = 6.0
     SOIL_PH_CEIL = 7.0
@@ -62,13 +66,14 @@ class Flowering:
 
 @dataclass(frozen=True)
 class LateGrowth:
-    TEMP_MIDDLE = 24.0  # 22-26
+    TEMP_FLOOR = 22.0
+    TEMP_CEIL = 26.0
 
-    HUM_FLOOR = 45
-    HUM_CEIL = 60
+    HUM_FLOOR = 45.0
+    HUM_CEIL = 60.0
 
-    SOIL_MOISTURE_FLOOR = 20
-    SOIL_MOISTURE_CEIL = 30
+    SOIL_MOISTURE_FLOOR = 20.0
+    SOIL_MOISTURE_CEIL = 30.0
 
     SOIL_PH_FLOOR = 6.0
     SOIL_PH_CEIL = 7.0
