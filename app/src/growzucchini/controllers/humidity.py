@@ -13,14 +13,19 @@ class HumidityController:
             ctrls = sensor_data.controls
             for ctrl in ctrls:
                 device = DEVICE_REGISTRY.get(ctrl.device)
-                if val > config.growth_phase.HUM_CEIL:
+                if val > config.growth_phase.HUM_CEIL - self.hum_tolerance:
                     await device(Action.DOWN, ctrl, command_queue)
-                elif (
-                        config.growth_phase.HUM_FLOOR
-                        <= val
-                        <= config.growth_phase.HUM_CEIL - 2
-                ):
+                elif val <= self.hum_mid - self.hum_tolerance:
                     await device(Action.UP, ctrl, command_queue)
             print(f"HumidityController: {sensor_data}")
         except Exception as e:
             print(f"Error: {e}")
+
+    @property
+    def hum_mid(self):
+        return config.growth_phase.HUM_FLOOR + (config.growth_phase.HUM_CEIL - config.growth_phase.HUM_FLOOR) / 2
+
+    @property
+    def hum_tolerance(self):
+        # 20% of the permissible humidity range
+        return (config.growth_phase.HUM_CEIL - config.growth_phase.HUM_FLOOR) / 100 * 20
