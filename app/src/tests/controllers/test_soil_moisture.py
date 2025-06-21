@@ -63,3 +63,23 @@ async def test_delay_in_decision_making(ctx, controller):
 
     # Sensor readings below acceptable value, but action hasn't been triggered
     ctx.mock_device.assert_not_called()
+
+
+@pytest.mark.asyncio
+async def test_controller_estimates_runtime(ctx, controller):
+    ctx.mock_device.estimate_runtime = AsyncMock(return_value=14.0)
+
+    with patch("asyncio.sleep", new_callable=AsyncMock) as mock_sleep:
+        sensor_data = get_test_sensor_data(
+            ctx.mock_ctrl,
+            config.growth_phase.SOIL_MOISTURE_FLOOR * 10 + controller.soil_moisture_tolerance
+        )
+
+        await controller(sensor_data, ctx.command_queue)
+
+        ctx.mock_device.assert_any_call(Action.UP, ctx.mock_ctrl, ctx.command_queue)
+        ctx.mock_device.estimate_runtime.assert_called_once_with(sensor_data)
+
+        mock_sleep.assert_awaited_once_with(14.0)
+
+        ctx.mock_device.assert_any_call(Action.DOWN, ctx.mock_ctrl, ctx.command_queue)

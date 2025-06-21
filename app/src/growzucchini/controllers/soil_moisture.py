@@ -32,7 +32,16 @@ class SoilMoistureController:
                 for ctrl in ctrls:
                     device = DEVICE_REGISTRY.get(ctrl.device)
                     if val <= config.growth_phase.SOIL_MOISTURE_FLOOR + self.soil_moisture_tolerance:
+                        duration = None
+                        if hasattr(device, "estimate_runtime"):
+                            duration = await device.estimate_runtime(sensor_data)
+
                         await device(Action.UP, ctrl, command_queue)
+
+                        if duration:
+                            await asyncio.sleep(duration)
+                            await device(Action.DOWN, ctrl, command_queue)
+
                 self.last_decision_time = time.monotonic()
                 log.debug(f"SoilMoistureController: {sensor_data}")
         except Exception as e:
