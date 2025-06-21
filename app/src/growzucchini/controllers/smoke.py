@@ -1,7 +1,10 @@
+import logging
 from asyncio import Queue
 
 from growzucchini.core.registry import controller_registry, DEVICE_REGISTRY, Action
 from growzucchini.core.sensor_data import SensorData
+
+log = logging.getLogger(__name__)
 
 
 @controller_registry("smoke")
@@ -12,6 +15,6 @@ class SmokeDetectionController:
             for ctrl in ctrls:
                 device = DEVICE_REGISTRY.get(ctrl.device)
                 await device(Action.DOWN, ctrl, command_queue)
-            print(f"SmokeDetectionController: {sensor_data}")
+            log.debug(f"SmokeDetectionController: {sensor_data}")
         except Exception as e:
-            print(f"Error: {e}")
+            log.exception(f"Error: {e}")

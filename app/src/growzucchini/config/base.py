@@ -1,6 +1,5 @@
 import inspect
 import logging
-import os
 import sys
 from dataclasses import dataclass
 from typing import get_type_hints, get_args
@@ -11,8 +10,6 @@ from growzucchini.config.hardware import Hardware
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
 )
-
-APP_MODE = os.environ.get("APP_MODE", "live")
 
 
 @dataclass

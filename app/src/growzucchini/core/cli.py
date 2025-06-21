@@ -1,9 +1,12 @@
 import asyncio
 import json
+import logging
 from asyncio import Queue
 
 from growzucchini.core.dispatcher import controller_dispatcher
 from growzucchini.core.utils.command_util import build_arduino_command, get_sensor_data
+
+log = logging.getLogger(__name__)
 
 
 async def handle_cli(command_queue: Queue) -> None:
@@ -31,7 +34,7 @@ async def handle_cli(command_queue: Queue) -> None:
         try:
             parts = raw_input.strip().split()
             if len(parts) != 3:
-                print("Invalid input. Use format: <command_type> <pin> <value>")
+                log.warning("Invalid input. Use format: <command_type> <pin> <value>")
                 continue
 
             command_type = parts[0]
@@ -42,4 +45,4 @@ async def handle_cli(command_queue: Queue) -> None:
             await command_queue.put(command_json)
 
         except Exception as e:
-            print(f"Error parsing command: {e}")
+            log.exception(f"Error parsing command: {e}")

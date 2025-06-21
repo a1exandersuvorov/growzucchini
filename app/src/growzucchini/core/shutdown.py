@@ -1,4 +1,8 @@
 import asyncio
+import logging
+
+log = logging.getLogger(__name__)
+
 
 class ShutdownHandler:
     def __init__(self, command_queue, arduino_protocol) -> None:
@@ -9,7 +13,7 @@ class ShutdownHandler:
     async def start(self):
         await self._shutdown_event.wait()
 
-        print("Graceful shutdown initiated...")
+        log.info("Graceful shutdown initiated...")
         await self.shutdown()
 
     def request_shutdown(self):
@@ -18,7 +22,7 @@ class ShutdownHandler:
     async def shutdown(self):
         if self.arduino_protocol.transport:
             self.arduino_protocol.transport.close()
-            print("Serial connection closed.")
+            log.info("Serial connection closed.")
 
         await asyncio.sleep(0.5)
         loop = asyncio.get_running_loop()

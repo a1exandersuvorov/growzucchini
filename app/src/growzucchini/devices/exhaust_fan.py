@@ -1,4 +1,5 @@
 import asyncio
+import logging
 from asyncio import Queue
 from functools import singledispatchmethod
 
@@ -6,6 +7,8 @@ from growzucchini.config.base import get_hardware_config
 from growzucchini.core.registry import device_registry, Action
 from growzucchini.core.sensor_data import Control, State
 from growzucchini.core.utils.command_util import build_arduino_command
+
+log = logging.getLogger(__name__)
 
 
 @device_registry("exhaust_fan")
@@ -51,7 +54,7 @@ class ExhaustFan:
                 if not self.rpm_threshold_determined:
                     if state.value >= self.fan_speed_floor:
                         self.rpm_threshold_determined = True
-                        print(f"RPM threshold found. idx: {self.rpm_threshold_idx}")
+                        log.info(f"RPM threshold found. idx: {self.rpm_threshold_idx}")
                         return
                     else:
                         self.rpm_threshold_idx += 1

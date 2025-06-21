@@ -11,9 +11,9 @@ def controller_test_context():
     class ControllerTestContext:
         def __init__(self):
             self.command_queue = asyncio.Queue()
-            self.device_mock = AsyncMock()
-            self.ctrl = MagicMock()
-            self.ctrl.device = "device"
-            DEVICE_REGISTRY["device"] = self.device_mock
+            self.mock_device = AsyncMock()
+            self.mock_ctrl = MagicMock()
+            self.mock_ctrl.device = "device"
+            DEVICE_REGISTRY["device"] = self.mock_device
 
     return ControllerTestContext()
