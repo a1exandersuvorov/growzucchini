@@ -1,4 +1,5 @@
 import asyncio
+import logging
 import time
 
 from asyncio import Queue
@@ -6,6 +7,8 @@ from asyncio import Queue
 from growzucchini.config import config
 from growzucchini.core.registry import controller_registry, DEVICE_REGISTRY, Action
 from growzucchini.core.sensor_data import SensorData
+
+log = logging.getLogger(__name__)
 
 
 @controller_registry("dt")
@@ -33,10 +36,10 @@ class TemperatureController:
                     elif current_temperature < self.temp_mid - self.temp_tolerance:
                         await device(Action.UP, ctrl, command_queue)
                 self.last_decision_time = time.monotonic()
-                print(f"TemperatureController: {sensor_data}")
+                log.debug(f"TemperatureController: {sensor_data}")
 
         except Exception as e:
-            print(f"Error: {e}")
+            log.exception(f"Error: {e}")
 
     @property
     def decision_interval(self):

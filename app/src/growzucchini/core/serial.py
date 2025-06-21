@@ -1,4 +1,6 @@
 import asyncio
+import logging
+import os
 from asyncio import BaseTransport, Queue
 from typing import Any
 
@@ -9,6 +11,8 @@ from growzucchini.config import config
 from growzucchini.config.base import APP_MODE
 from growzucchini.core.dispatcher import controller_dispatcher
 from growzucchini.core.utils.command_util import get_sensor_data
+
+log = logging.getLogger(__name__)
 
 
 class ArduinoProtocol(asyncio.Protocol):
@@ -24,16 +28,16 @@ class ArduinoProtocol(asyncio.Protocol):
         if "\n" in self.buffer:
             lines = self.buffer.split("\n")
             for line in lines[
-                :-1
-            ]:  # Process all lines except the last one (partial data)
+                        :-1
+                        ]:  # Process all lines except the last one (partial data)
                 striped_line = line.strip()
-                if APP_MODE == "arduino_debug":
-                    print(f"Debug mode: {striped_line}")
+                if os.environ.get("APP_MODE") == "arduino_debug":
+                    log.info(f"Debug mode: {striped_line}")
                 else:
                     sensor_data = get_sensor_data(striped_line)
                     if sensor_data:
                         if sensor_data.sensor == "error":
-                            print(f"Arduino error: {sensor_data.value}")
+                            log.warning(f"Arduino error: {sensor_data.value}")
                         else:
                             controller_dispatcher(sensor_data, self.command_queue)
 
@@ -46,7 +50,7 @@ class ArduinoProtocol(asyncio.Protocol):
         self.transport = (
             transport  # The transport object represents the serial connection
         )
-        print("Connected to Arduino")
+        log.info("Connected to Arduino")
 
     # TODO: reconnect if lost
     def connection_lost(self, exc: Exception | None) -> None:
@@ -56,10 +60,10 @@ class ArduinoProtocol(asyncio.Protocol):
     async def send_command(self, command: str) -> None:
         """Send a command to Arduino."""
         if command and self.transport:
-            print(f"Sending command to Arduino: {command}")
+            log.info(f"Sending command to Arduino: {command}")
             self.transport.write(command.encode())
         else:
-            print("Empty command ignored.")
+            log.warning("Empty command ignored.")
 
 
 async def connect(command_queue: Queue) -> tuple[SerialTransport, Any]:

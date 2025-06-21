@@ -1,4 +1,5 @@
 import asyncio
+import logging
 import time
 
 from asyncio import Queue
@@ -7,6 +8,8 @@ from growzucchini.config import config
 from growzucchini.config.base import get_hardware_config
 from growzucchini.core.registry import controller_registry, DEVICE_REGISTRY, Action
 from growzucchini.core.sensor_data import SensorData
+
+log = logging.getLogger(__name__)
 
 
 @controller_registry("sm")
@@ -31,9 +34,9 @@ class SoilMoistureController:
                     if val <= config.growth_phase.SOIL_MOISTURE_FLOOR + self.soil_moisture_tolerance:
                         await device(Action.UP, ctrl, command_queue)
                 self.last_decision_time = time.monotonic()
-                print(f"SoilMoistureController: {sensor_data}")
+                log.debug(f"SoilMoistureController: {sensor_data}")
         except Exception as e:
-            print(f"Error: {e}")
+            log.exception(f"Error: {e}")
 
     @property
     def one_percent(self):

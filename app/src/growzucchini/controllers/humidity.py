@@ -1,8 +1,11 @@
+import logging
 from asyncio import Queue
 
 from growzucchini.config import config
 from growzucchini.core.registry import DEVICE_REGISTRY, Action, controller_registry
 from growzucchini.core.sensor_data import SensorData
+
+log = logging.getLogger(__name__)
 
 
 @controller_registry("dh")
@@ -17,9 +20,9 @@ class HumidityController:
                     await device(Action.DOWN, ctrl, command_queue)
                 elif val <= self.hum_mid - self.hum_tolerance:
                     await device(Action.UP, ctrl, command_queue)
-            print(f"HumidityController: {sensor_data}")
+            log.debug(f"HumidityController: {sensor_data}")
         except Exception as e:
-            print(f"Error: {e}")
+            log.exception(f"Unexpected error: {e}")
 
     @property
     def hum_mid(self):

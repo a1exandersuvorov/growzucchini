@@ -1,6 +1,9 @@
 import json
+import logging
 
 from growzucchini.core.sensor_data import Control, SensorData
+
+log = logging.getLogger(__name__)
 
 
 def build_arduino_command(command_type: str, pin: int, value: int | float) -> str:
@@ -14,5 +17,6 @@ def get_sensor_data(line: str) -> SensorData | None:
         data = json.loads(line)
         data["controls"] = [Control(**ctrl) for ctrl in data.get("controls", [])]
         return SensorData(**data)
-    except json.JSONDecodeError as e:
-        print(f"Invalid JSON: {line} | Error: {e}")
+    except json.JSONDecodeError:
+        log.error(f"Invalid JSON: {line}")
+        return None
