@@ -2,13 +2,10 @@ import asyncio
 import logging
 import os
 from asyncio import BaseTransport, Queue
-from typing import Any
 
 import serial_asyncio
-from serial_asyncio import SerialTransport
 
 from growzucchini.config import config
-from growzucchini.config.base import APP_MODE
 from growzucchini.core.dispatcher import controller_dispatcher
 from growzucchini.core.utils.command_util import get_sensor_data
 
@@ -16,10 +13,11 @@ log = logging.getLogger(__name__)
 
 
 class ArduinoProtocol(asyncio.Protocol):
-    def __init__(self, command_queue: Queue):
+    def __init__(self, command_queue: Queue, on_connection_lost=None):
         self.command_queue = command_queue
         self.transport = None
         self.buffer = ""  # Buffer to store incoming data
+        self.on_connection_lost = on_connection_lost  # Callback
 
     def data_received(self, data: bytes) -> None:
 
@@ -52,10 +50,10 @@ class ArduinoProtocol(asyncio.Protocol):
         )
         log.info("Connected to Arduino")
 
-    # TODO: reconnect if lost
     def connection_lost(self, exc: Exception | None) -> None:
-        print("Connection lost", exc)
-        asyncio.get_event_loop().stop()
+        log.info("Connection lost", exc)
+        if self.on_connection_lost:
+            asyncio.create_task(self.on_connection_lost())  # Trigger reconnection
 
     async def send_command(self, command: str) -> None:
         """Send a command to Arduino."""
@@ -66,14 +64,21 @@ class ArduinoProtocol(asyncio.Protocol):
             log.warning("Empty command ignored.")
 
 
-async def connect(command_queue: Queue) -> tuple[SerialTransport, Any]:
-    """Establish the serial connection to Arduino."""
+async def serial_connection_loop(command_queue: Queue) -> ArduinoProtocol:
     loop = asyncio.get_running_loop()
-    serial_connection = await serial_asyncio.create_serial_connection(
-        loop,
-        lambda: ArduinoProtocol(command_queue),
-        config.SERIAL_PORT,
-        baudrate=config.BAUD_RATE,
-    )
 
-    return serial_connection
+    async def reconnect():
+        log.info("Attempting to reconnect in 5 seconds...")
+        await asyncio.sleep(5)
+        await establish_serial_connection()  # reconnects, but you don't need to store the protocol
+
+    async def establish_serial_connection():
+        transport, protocol = await serial_asyncio.create_serial_connection(
+            loop,
+            lambda: ArduinoProtocol(command_queue, on_connection_lost=reconnect),
+            config.SERIAL_PORT,
+            baudrate=config.BAUD_RATE,
+        )
+        return protocol
+
+    return await establish_serial_connection()

@@ -2,7 +2,7 @@ import asyncio
 
 from growzucchini import controllers, devices
 from growzucchini.core.dispatcher import command_dispatcher
-from growzucchini.core.serial import connect
+from growzucchini.core.serial import serial_connection_loop
 from growzucchini.core.shutdown import ShutdownHandler
 from growzucchini.core.cli import handle_cli
 
@@ -12,9 +12,7 @@ async def main():
     controllers.load_all_processors()
     devices.load_all_devices()
 
-    serial_connection = await connect(command_queue)
-    arduino_protocol = serial_connection[1]
-
+    arduino_protocol = await serial_connection_loop(command_queue)
     shutdown_handler = ShutdownHandler(command_queue, arduino_protocol)
 
     await asyncio.gather(
@@ -24,4 +22,5 @@ async def main():
     )
 
 
-asyncio.run(main())
+if __name__ == "__main__":
+    asyncio.run(main())
