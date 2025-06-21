@@ -6,15 +6,20 @@ GrowZucchini is a modular automation system for indoor plant environments, built
 monitoring and control of key environmental factors, including:
 
 - Climate And Soil Moisture Control.
-- Growth Condition Logging And Data Visualisation.
-- Modular Architecture: Add or remove sensors/controls (e.g. alarms, lights, pumps) with minimal code changes.
-- Python Control App: Communicates with Arduino, supports CLI-based manual overrides, and manages data storage.
+- Data Logging & Visualization: Backed by InfluxDB, enabling time-series data storage and interactive dashboard
+  visualization through its built-in UI.
+- Modular Architecture: Structured around interchangeable sensor and actuator modules (e.g., alarms, lights, pumps).
+  Devices can be added or removed by plugging them into well-defined integration points, without altering the system’s
+  core logic. The core of the system is generic and reusable across Arduino-based setups, supporting any combination of
+  devices for any purpose.
+- Python Control App: Receives sensor data from Arduino, makes control decisions, sends commands to actuators. CLI-based
+  manual overrides is supported.
 - Dockerized Deployment: Python app and InfluxDB run in isolated containers for portability and stability.
 
 ## Project Structure
 
-- `app/`: Python application (`growzucchini`) that communicates with embedded devices, logs data to InfluxDB, and
-  controls actuators.
+- `app/`: Python application (`growzucchini`) that communicates with embedded devices, controls actuators, and logs data
+  to InfluxDB.
 - `arduino/`: PlatformIO-based firmware for Arduino-compatible boards, responsible for reading sensors and receiving
   control commands.
 - `Makefile`: Unification of dev commands across both environments.
