@@ -7,13 +7,13 @@ packages = [{ include = "growzucchini", from = "src" }]
 license = "MIT"
 
 [tool.poetry.dependencies]
-python = "^3.12"
-influxdb-client = "^1.42.0"
-pyserial-asyncio = "^0.6"
+python = "3.12"
+influxdb-client = "1.49.0"
+pyserial-asyncio = "0.6"
 
 [tool.poetry.group.dev.dependencies]
-pytest = "^8.0.0"
-pytest-asyncio = "^1.0.0"
+pytest = "8.4.0"
+pytest-asyncio = "1.0.0"
 
 [build-system]
 requires = ["poetry-core"]
