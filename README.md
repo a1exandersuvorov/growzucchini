@@ -13,8 +13,8 @@ monitoring and control of key environmental factors, including:
   core logic. The core of the system is generic and reusable across Arduino-based setups, supporting any combination of
   devices for any purpose.
 - Python Control App: Receives sensor data from Arduino, makes control decisions, sends commands to actuators. CLI-based
-  manual overrides is supported.
-- Dockerized Deployment: Python app and InfluxDB run in isolated containers for portability and stability.
+  manual override is supported.
+- Dockerized Deployment: Python app and InfluxDB run in isolated container.
 
 ## Project Structure
 
