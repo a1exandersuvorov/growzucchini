@@ -23,3 +23,9 @@ monitoring and control of key environmental factors, including:
 - `arduino/`: PlatformIO-based firmware for Arduino-compatible boards, responsible for reading sensors and receiving
   control commands.
 - `Makefile`: Unification of dev commands across both environments.
+
+## Architectural View
+
+<p align="center">
+    <img src="assets/architecture.png" alt="architectural diagram" width="1000"/>
+</p>
