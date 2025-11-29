@@ -1,4 +1,4 @@
-from growzucchini.core.sensor_data import SensorData, Control
+from katosup.core.sensor_data import SensorData, Control
 
 
 def get_test_sensor_data(ctrl: Control, val: float) -> SensorData:

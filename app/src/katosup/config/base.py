@@ -4,8 +4,8 @@ import sys
 from dataclasses import dataclass
 from typing import get_type_hints, get_args
 
-import growzucchini.config.hardware as items
-from growzucchini.config.hardware import Hardware
+import katosup.config.hardware as items
+from katosup.config.hardware import Hardware
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"

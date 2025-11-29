@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from typing import Union
 
-from growzucchini.config.base import BaseConfig
+from katosup.config.base import BaseConfig
 
 
 @dataclass(frozen=True)

@@ -3,10 +3,10 @@ import logging
 from asyncio import Queue
 from functools import singledispatchmethod
 
-from growzucchini.config.base import get_hardware_config
-from growzucchini.core.registry import device_registry, Action
-from growzucchini.core.sensor_data import Control, State
-from growzucchini.core.utils.command_util import build_arduino_command
+from katosup.config.base import get_hardware_config
+from katosup.core.registry import device_registry, Action
+from katosup.core.sensor_data import Control, State
+from katosup.core.utils.command_util import build_arduino_command
 
 log = logging.getLogger(__name__)
 

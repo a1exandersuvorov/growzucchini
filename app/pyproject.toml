@@ -1,9 +1,9 @@
 [tool.poetry]
-name = "growzucchini"
+name = "katosup"
 version = "0.1.0"
 description = "Automated plant growth controller"
 authors = ["Alexander Suvorov <hi.alexsuv@gmail.com>"]
-packages = [{ include = "growzucchini", from = "src" }]
+packages = [{ include = "katosup", from = "src" }]
 license = "MIT"
 
 [tool.poetry.dependencies]

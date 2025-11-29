@@ -5,9 +5,9 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 
-from growzucchini.core.dispatcher import command_dispatcher, controller_dispatcher
-from growzucchini.core.sensor_data import SensorData
-from growzucchini.core.registry import CONTROLLER_REGISTRY
+from katosup.core.dispatcher import command_dispatcher, controller_dispatcher
+from katosup.core.sensor_data import SensorData
+from katosup.core.registry import CONTROLLER_REGISTRY
 
 
 @pytest.fixture
@@ -61,8 +61,8 @@ async def test_command_dispatcher_handles_invalid_json(command_queue, fake_ardui
 async def test_command_dispatcher_switches_phase(command_queue, fake_arduino_protocol, fake_shutdown_handler):
     mock_phase = MagicMock()
 
-    with patch("growzucchini.core.dispatcher.config.get_growth_phases", return_value={"veg": mock_phase}), \
-            patch("growzucchini.core.dispatcher.config.switch_growth_phase") as switch_mock:
+    with patch("katosup.core.dispatcher.config.get_growth_phases", return_value={"veg": mock_phase}), \
+            patch("katosup.core.dispatcher.config.switch_growth_phase") as switch_mock:
         await command_queue.put(json.dumps({"command": "phase", "name": "veg"}))
 
         task = asyncio.create_task(command_dispatcher(command_queue, fake_arduino_protocol, fake_shutdown_handler))
@@ -76,7 +76,7 @@ async def test_command_dispatcher_switches_phase(command_queue, fake_arduino_pro
 @pytest.mark.asyncio
 async def test_command_dispatcher_unknown_phase(command_queue, fake_arduino_protocol, fake_shutdown_handler, caplog):
     caplog.set_level("WARNING")
-    with patch("growzucchini.core.dispatcher.config.get_growth_phases", return_value={}):
+    with patch("katosup.core.dispatcher.config.get_growth_phases", return_value={}):
         await command_queue.put(json.dumps({"command": "phase", "name": "unknown"}))
 
         task = asyncio.create_task(command_dispatcher(command_queue, fake_arduino_protocol, fake_shutdown_handler))

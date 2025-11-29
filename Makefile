@@ -10,7 +10,7 @@ install:
 
 .PHONY: run
 run:
-	cd $(PY_APP_DIR)/src && poetry run python growzucchini/main.py
+	cd $(PY_APP_DIR)/src && poetry run python katosup/main.py
 
 .PHONY: test
 test:
@@ -18,7 +18,7 @@ test:
 
 .PHONY: lint
 lint:
-	cd $(PY_APP_DIR)/src && poetry run ruff check growzucchini tests
+	cd $(PY_APP_DIR)/src && poetry run ruff check katosup tests
 
 # === Arduino Commands ===
 

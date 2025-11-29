@@ -2,9 +2,9 @@ import json
 
 import pytest
 
-from growzucchini.core.registry import Action
-from growzucchini.core.sensor_data import Control
-from growzucchini.devices.linear_device import LinearDevice
+from katosup.core.registry import Action
+from katosup.core.sensor_data import Control
+from katosup.devices.linear_device import LinearDevice
 
 
 @pytest.fixture

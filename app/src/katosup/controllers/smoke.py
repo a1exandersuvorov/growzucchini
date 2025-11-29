@@ -1,8 +1,8 @@
 import logging
 from asyncio import Queue
 
-from growzucchini.core.registry import controller_registry, DEVICE_REGISTRY, Action
-from growzucchini.core.sensor_data import SensorData
+from katosup.core.registry import controller_registry, DEVICE_REGISTRY, Action
+from katosup.core.sensor_data import SensorData
 
 log = logging.getLogger(__name__)
 

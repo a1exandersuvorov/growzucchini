@@ -1,7 +1,7 @@
 import json
 import logging
 
-from growzucchini.core.sensor_data import Control, SensorData
+from katosup.core.sensor_data import Control, SensorData
 
 log = logging.getLogger(__name__)
 
