@@ -1,9 +1,9 @@
-from growzucchini.config import config
-from growzucchini.config.base import get_hardware_config
-from growzucchini.core.registry import device_registry
-from growzucchini.core.sensor_data import SensorData
-from growzucchini.devices.duration_estimation_device import DurationEstimatingDevice
-from growzucchini.devices.linear_device import LinearDevice
+from katosup.config import config
+from katosup.config.base import get_hardware_config
+from katosup.core.registry import device_registry
+from katosup.core.sensor_data import SensorData
+from katosup.devices.duration_estimation_device import DurationEstimatingDevice
+from katosup.devices.linear_device import LinearDevice
 
 '''
 T = ((M_target − M_current) / 100) × (V_pot / Q_pump)

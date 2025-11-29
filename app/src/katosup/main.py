@@ -1,10 +1,10 @@
 import asyncio
 
-from growzucchini import controllers, devices
-from growzucchini.core.dispatcher import command_dispatcher
-from growzucchini.core.serial import serial_connection_loop
-from growzucchini.core.shutdown import ShutdownHandler
-from growzucchini.core.cli import handle_cli
+from katosup import controllers, devices
+from katosup.core.dispatcher import command_dispatcher
+from katosup.core.serial import serial_connection_loop
+from katosup.core.shutdown import ShutdownHandler
+from katosup.core.cli import handle_cli
 
 
 async def main():

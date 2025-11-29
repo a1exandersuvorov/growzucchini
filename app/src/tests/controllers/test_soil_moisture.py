@@ -3,9 +3,9 @@ from unittest.mock import patch, AsyncMock
 
 import pytest
 
-from growzucchini.config import config
-from growzucchini.controllers.soil_moisture import SoilMoistureController
-from growzucchini.core.registry import Action
+from katosup.config import config
+from katosup.controllers.soil_moisture import SoilMoistureController
+from katosup.core.registry import Action
 from tests.test_utils import get_test_sensor_data
 
 

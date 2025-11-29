@@ -1,9 +1,9 @@
 import asyncio
 from asyncio import Queue
 
-from growzucchini.core.registry import Action
-from growzucchini.core.sensor_data import Control
-from growzucchini.core.utils.command_util import build_arduino_command
+from katosup.core.registry import Action
+from katosup.core.sensor_data import Control
+from katosup.core.utils.command_util import build_arduino_command
 
 """A digital control device with linear logic where the desired action matches the desired command"""
 

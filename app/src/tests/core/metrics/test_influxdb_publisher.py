@@ -3,8 +3,8 @@ from unittest.mock import MagicMock, patch
 
 from influxdb_client import Point
 
-from growzucchini.core.metrics.influxdb_publisher import influx_ingestion
-from growzucchini.core.sensor_data import SensorData
+from katosup.core.metrics.influxdb_publisher import influx_ingestion
+from katosup.core.sensor_data import SensorData
 
 
 @pytest.fixture
@@ -24,7 +24,7 @@ def test_influx_ingestion_wrapper(sample_sensor_data):
     # Apply the wrapper manually
     wrapped_func = influx_ingestion(mock_func)
 
-    with patch("growzucchini.core.metrics.influxdb_publisher.write_api.write") as mock_write:
+    with patch("katosup.core.metrics.influxdb_publisher.write_api.write") as mock_write:
         result = wrapped_func(sample_sensor_data)
 
         # Assert wrapped function was called

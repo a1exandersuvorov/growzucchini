@@ -1,4 +1,4 @@
-from growzucchini.core.sensor_data import SensorData
+from katosup.core.sensor_data import SensorData
 
 
 class DurationEstimatingDevice:

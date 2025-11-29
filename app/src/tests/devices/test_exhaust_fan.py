@@ -3,9 +3,9 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from growzucchini.core.registry import Action
-from growzucchini.core.sensor_data import Control, State
-from growzucchini.devices.exhaust_fan import ExhaustFan
+from katosup.core.registry import Action
+from katosup.core.sensor_data import Control, State
+from katosup.devices.exhaust_fan import ExhaustFan
 
 
 @pytest.fixture
@@ -21,7 +21,7 @@ def control():
 @pytest.mark.asyncio
 async def test_exhaust_fan_threshold_detection(ctx, device, control, monkeypatch):
     monkeypatch.setattr(
-        "growzucchini.devices.exhaust_fan.get_hardware_config",
+        "katosup.devices.exhaust_fan.get_hardware_config",
         lambda: {"ExhaustFan": MagicMock(FAN_SPEED_FLOOR=100)}
     )
 

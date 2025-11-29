@@ -1,7 +1,7 @@
 import pytest
 
-from growzucchini.controllers.exhaust_fan_speed import ExhaustFanSpeedController
-from growzucchini.core.sensor_data import State
+from katosup.controllers.exhaust_fan_speed import ExhaustFanSpeedController
+from katosup.core.sensor_data import State
 from tests.test_utils import get_test_sensor_data
 
 rpm = 900.0

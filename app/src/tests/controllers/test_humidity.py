@@ -1,8 +1,8 @@
 import pytest
 
-from growzucchini.config import config
-from growzucchini.controllers.humidity import HumidityController
-from growzucchini.core.registry import Action
+from katosup.config import config
+from katosup.controllers.humidity import HumidityController
+from katosup.core.registry import Action
 from tests.test_utils import get_test_sensor_data
 
 

@@ -6,8 +6,8 @@ from functools import wraps
 from influxdb_client import InfluxDBClient, Point
 from influxdb_client.client.write_api import SYNCHRONOUS
 
-from growzucchini.config import config
-from growzucchini.core.sensor_data import SensorData
+from katosup.config import config
+from katosup.core.sensor_data import SensorData
 
 log = logging.getLogger(__name__)
 try:

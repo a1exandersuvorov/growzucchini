@@ -3,8 +3,8 @@ import json
 import logging
 from asyncio import Queue
 
-from growzucchini.core.dispatcher import controller_dispatcher
-from growzucchini.core.utils.command_util import build_arduino_command, get_sensor_data
+from katosup.core.dispatcher import controller_dispatcher
+from katosup.core.utils.command_util import build_arduino_command, get_sensor_data
 
 log = logging.getLogger(__name__)
 
