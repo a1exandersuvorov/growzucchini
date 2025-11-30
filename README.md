@@ -1,14 +1,14 @@
 # Katosup 
 Modular automation system for indoor plant environments, built with Arduino and Python. 
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
-[![Poetry](https://img.shields.io/badge/managed_by-poetry-blue.svg)](https://python-poetry.org/)
-[![Type Checked: mypy](https://img.shields.io/badge/type%20checked-mypy-blue.svg)](http://mypy-lang.org/)
-[![Tests: pytest](https://img.shields.io/badge/tests-pytest-438440.svg)](https://pytest.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-F2BF42.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.12+](https://img.shields.io/badge/python-3.12+-3872E0.svg)](https://www.python.org/downloads/)
+[![Poetry](https://img.shields.io/badge/managed_by-poetry-3872E0.svg)](https://python-poetry.org/)
+[![Type Checked: mypy](https://img.shields.io/badge/type%20checked-mypy-3872E0.svg)](http://mypy-lang.org/)
+[![Tests: pytest](https://img.shields.io/badge/tests-pytest-58A65D.svg)](https://pytest.org/)
 
-[![C++](https://img.shields.io/badge/c++-arduino-%2300979D.svg?logo=c%2B%2B&logoColor=white)](https://www.arduino.cc/)
-[![PlatformIO](https://img.shields.io/badge/embeded_env-platformio-E68841.svg?logo=platformio&logoColor=%23f5822a)](https://platformio.org/)
+[![C++](https://img.shields.io/badge/c++-arduino-2D6569.svg?logo=c%2B%2B&logoColor=white)](https://www.arduino.cc/)
+[![PlatformIO](https://img.shields.io/badge/embeded_env-platformio-D57A2D.svg?logo=platformio&logoColor=%23f5822a)](https://platformio.org/)
 
 ## Features
 
@@ -34,5 +34,5 @@ Modular automation system for indoor plant environments, built with Arduino and 
 ## Architectural View
 
 <p align="center">
-    <img src="doc/architectural-schema.png" alt="architectural diagram" width="1000"/>
+    <img src="doc/architecture-diagram.png" alt="architectural diagram" width="1000"/>
 </p>
