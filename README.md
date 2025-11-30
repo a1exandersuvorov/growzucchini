@@ -5,10 +5,10 @@ Modular automation system for indoor plant environments, built with Arduino and 
 [![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
 [![Poetry](https://img.shields.io/badge/managed_by-poetry-blue.svg)](https://python-poetry.org/)
 [![Type Checked: mypy](https://img.shields.io/badge/type%20checked-mypy-blue.svg)](http://mypy-lang.org/)
-[![Tests: pytest](https://img.shields.io/badge/tests-pytest-green.svg)](https://pytest.org/)
+[![Tests: pytest](https://img.shields.io/badge/tests-pytest-438440.svg)](https://pytest.org/)
 
 [![C++](https://img.shields.io/badge/c++-arduino-%2300979D.svg?logo=c%2B%2B&logoColor=white)](https://www.arduino.cc/)
-[![PlatformIO](https://img.shields.io/badge/embeded_env-platformio-orange.svg?logo=platformio&logoColor=%23f5822a)](https://platformio.org/)
+[![PlatformIO](https://img.shields.io/badge/embeded_env-platformio-E68841.svg?logo=platformio&logoColor=%23f5822a)](https://platformio.org/)
 
 ## Features
 
@@ -34,5 +34,5 @@ Modular automation system for indoor plant environments, built with Arduino and 
 ## Architectural View
 
 <p align="center">
-    <img src="assets/architecture.png" alt="architectural diagram" width="1000"/>
+    <img src="doc/architectural-schema.png" alt="architectural diagram" width="1000"/>
 </p>
