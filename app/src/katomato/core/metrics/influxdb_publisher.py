@@ -6,8 +6,8 @@ from functools import wraps
 from influxdb_client import InfluxDBClient, Point
 from influxdb_client.client.write_api import SYNCHRONOUS
 
-from katosup.config import config
-from katosup.core.sensor_data import SensorData
+from katomato.config import config
+from katomato.core.sensor_data import SensorData
 
 log = logging.getLogger(__name__)
 try:

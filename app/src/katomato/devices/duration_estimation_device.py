@@ -1,4 +1,4 @@
-from katosup.core.sensor_data import SensorData
+from katomato.core.sensor_data import SensorData
 
 
 class DurationEstimatingDevice:

@@ -1,8 +1,8 @@
 import pytest
 
-from katosup.config import config
-from katosup.controllers.humidity import HumidityController
-from katosup.core.registry import Action
+from katomato.config import config
+from katomato.controllers.humidity import HumidityController
+from katomato.core.registry import Action
 from tests.test_utils import get_test_sensor_data
 
 

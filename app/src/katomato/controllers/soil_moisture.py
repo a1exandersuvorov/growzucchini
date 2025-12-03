@@ -4,10 +4,10 @@ import time
 
 from asyncio import Queue
 
-from katosup.config import config
-from katosup.config.base import get_hardware_config
-from katosup.core.registry import controller_registry, DEVICE_REGISTRY, Action
-from katosup.core.sensor_data import SensorData
+from katomato.config import config
+from katomato.config.base import get_hardware_config
+from katomato.core.registry import controller_registry, DEVICE_REGISTRY, Action
+from katomato.core.sensor_data import SensorData
 
 log = logging.getLogger(__name__)
 

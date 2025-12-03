@@ -4,8 +4,8 @@ from unittest.mock import patch
 
 import pytest
 
-from katosup.core.cli import handle_cli
-from katosup.core.utils.command_util import get_sensor_data
+from katomato.core.cli import handle_cli
+from katomato.core.utils.command_util import get_sensor_data
 
 
 @pytest.mark.asyncio
@@ -44,7 +44,7 @@ async def test_handle_cli_invalid_command_format(caplog):
         assert any("Invalid input" in message for message in caplog.messages)
 
 
-@patch("katosup.core.cli.controller_dispatcher")
+@patch("katomato.core.cli.controller_dispatcher")
 @pytest.mark.asyncio
 async def test_handle_cli_sim_command_dispatch(mock_dispatcher):
     queue = asyncio.Queue()

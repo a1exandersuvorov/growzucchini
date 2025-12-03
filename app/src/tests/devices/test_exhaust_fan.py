@@ -3,9 +3,9 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from katosup.core.registry import Action
-from katosup.core.sensor_data import Control, State
-from katosup.devices.exhaust_fan import ExhaustFan
+from katomato.core.registry import Action
+from katomato.core.sensor_data import Control, State
+from katomato.devices.exhaust_fan import ExhaustFan
 
 
 @pytest.fixture
@@ -21,7 +21,7 @@ def control():
 @pytest.mark.asyncio
 async def test_exhaust_fan_threshold_detection(ctx, device, control, monkeypatch):
     monkeypatch.setattr(
-        "katosup.devices.exhaust_fan.get_hardware_config",
+        "katomato.devices.exhaust_fan.get_hardware_config",
         lambda: {"ExhaustFan": MagicMock(FAN_SPEED_FLOOR=100)}
     )
 

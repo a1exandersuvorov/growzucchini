@@ -1,9 +1,9 @@
-from katosup.config import config
-from katosup.config.base import get_hardware_config
-from katosup.core.registry import device_registry
-from katosup.core.sensor_data import SensorData
-from katosup.devices.duration_estimation_device import DurationEstimatingDevice
-from katosup.devices.linear_device import LinearDevice
+from katomato.config import config
+from katomato.config.base import get_hardware_config
+from katomato.core.registry import device_registry
+from katomato.core.sensor_data import SensorData
+from katomato.devices.duration_estimation_device import DurationEstimatingDevice
+from katomato.devices.linear_device import LinearDevice
 
 '''
 T = ((M_target − M_current) / 100) × (V_pot / Q_pump)

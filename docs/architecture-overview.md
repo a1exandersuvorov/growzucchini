@@ -4,7 +4,7 @@
     <img src="../assets/architecture-diagram.png" alt="architecture diagram" width="1000"/>
 </p>
 
-Katosup is built as a **modular, plug-in/plug-out automation framework**.  
+Katomato is built as a **modular, plug-in/plug-out automation framework**.  
 It is intentionally generic and can be used for **any IoT automation purpose**, not only plant growing.
 
 The system consists of two main components:

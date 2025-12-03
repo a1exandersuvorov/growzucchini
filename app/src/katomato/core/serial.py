@@ -5,9 +5,9 @@ from asyncio import BaseTransport, Queue
 
 import serial_asyncio
 
-from katosup.config import config
-from katosup.core.dispatcher import controller_dispatcher
-from katosup.core.utils.command_util import get_sensor_data
+from katomato.config import config
+from katomato.core.dispatcher import controller_dispatcher
+from katomato.core.utils.command_util import get_sensor_data
 
 log = logging.getLogger(__name__)
 

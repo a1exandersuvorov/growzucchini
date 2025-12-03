@@ -2,8 +2,8 @@ import time
 
 import pytest
 
-from katosup.controllers.temperature import TemperatureController
-from katosup.core.registry import Action
+from katomato.controllers.temperature import TemperatureController
+from katomato.core.registry import Action
 from tests.test_utils import get_test_sensor_data
 
 

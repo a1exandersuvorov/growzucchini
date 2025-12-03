@@ -1,10 +1,10 @@
 import asyncio
 
-from katosup import controllers, devices
-from katosup.core.dispatcher import command_dispatcher
-from katosup.core.serial import serial_connection_loop
-from katosup.core.shutdown import ShutdownHandler
-from katosup.core.cli import handle_cli
+from katomato import controllers, devices
+from katomato.core.dispatcher import command_dispatcher
+from katomato.core.serial import serial_connection_loop
+from katomato.core.shutdown import ShutdownHandler
+from katomato.core.cli import handle_cli
 
 
 async def main():

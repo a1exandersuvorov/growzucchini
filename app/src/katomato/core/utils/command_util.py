@@ -1,7 +1,7 @@
 import json
 import logging
 
-from katosup.core.sensor_data import Control, SensorData
+from katomato.core.sensor_data import Control, SensorData
 
 log = logging.getLogger(__name__)
 

@@ -2,7 +2,7 @@ from unittest.mock import patch, MagicMock
 
 import pytest
 
-from katosup.devices.water_pump import WaterPump
+from katomato.devices.water_pump import WaterPump
 from tests.test_utils import get_test_sensor_data
 
 
@@ -17,7 +17,7 @@ async def test_estimate_runtime_calculates_correctly(ctx):
 
     sensor_data = get_test_sensor_data(ctx.mock_ctrl, sensor_value)
 
-    with patch("katosup.devices.water_pump.get_hardware_config") as mock_hw_config:
+    with patch("katomato.devices.water_pump.get_hardware_config") as mock_hw_config:
         mock_hw_config.return_value = {
             "WaterPump": MagicMock(
                 FLOW_RATE=flow_rate,

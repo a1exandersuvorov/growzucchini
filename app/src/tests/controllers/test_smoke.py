@@ -1,7 +1,7 @@
 import pytest
 
-from katosup.controllers.smoke import SmokeDetectionController
-from katosup.core.registry import Action
+from katomato.controllers.smoke import SmokeDetectionController
+from katomato.core.registry import Action
 from tests.test_utils import get_test_sensor_data
 
 sensor_val = 1.0

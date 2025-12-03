@@ -1,7 +1,7 @@
 import pytest
 
-from katosup.controllers.exhaust_fan_speed import ExhaustFanSpeedController
-from katosup.core.sensor_data import State
+from katomato.controllers.exhaust_fan_speed import ExhaustFanSpeedController
+from katomato.core.sensor_data import State
 from tests.test_utils import get_test_sensor_data
 
 rpm = 900.0

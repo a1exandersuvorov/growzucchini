@@ -3,8 +3,8 @@ import json
 import logging
 from asyncio import Queue
 
-from katosup.core.dispatcher import controller_dispatcher
-from katosup.core.utils.command_util import build_arduino_command, get_sensor_data
+from katomato.core.dispatcher import controller_dispatcher
+from katomato.core.utils.command_util import build_arduino_command, get_sensor_data
 
 log = logging.getLogger(__name__)
 

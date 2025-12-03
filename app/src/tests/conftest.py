@@ -3,7 +3,7 @@ import asyncio
 
 from unittest.mock import AsyncMock, MagicMock
 
-from katosup.core.registry import DEVICE_REGISTRY
+from katomato.core.registry import DEVICE_REGISTRY
 
 
 @pytest.fixture(name="ctx")
