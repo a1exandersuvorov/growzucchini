@@ -29,10 +29,59 @@ Modular automation system for indoor plant environments, built with Arduino and 
   to InfluxDB.
 - `arduino/`: PlatformIO-based firmware for Arduino-compatible boards, responsible for reading sensors and receiving
   control commands.
+- `docs/`: Project documentation.
 - `Makefile`: Unification of dev commands across both environments.
 
-## Architectural View
+## Quick Start
+
+### Prerequisites
+- Arduino UNO
+- Any sensor and any actuator, for example DHT22 and LED
+- Docker
+- PlatformIO
+
+### Installation
+
+🚧 the section is under development...
+
+> See [Setup guide](docs/setup-guide.md) for detailed instructions.
+
+## Architecture (High-Level Overview)
 
 <p align="center">
-    <img src="doc/architecture-diagram.png" alt="architectural diagram" width="1000"/>
+    <img src="assets/architecture-diagram.png" alt="architecture diagram" width="1000"/>
 </p>
+
+- Sensors on Arduino read physical data (temperature, humidity, moisture, smoke, etc.).
+- Arduino encodes readings into a unified JSON message.
+- Python server receives the JSON, validates it, and routes the data to registered Controllers.
+- Controllers pass structured data to Devices. Controllers control certain conditions like temperature or humidity but 
+devices contain actuator behavior logic.
+- Devices publish commands into a message queue.
+- Server Core consumes the queue and sends commands back to Arduino.
+- Arduino Core receives the command and sends it to the appropriate Control (fan, light, relay, etc.).
+- All sensor data is persisted to InfluxDB and visualize it through its built-in UI.
+- Add/remove Sensors, Controls, Devices, Controllers → without touching the Core on either side.
+
+This makes the system:
+- Extensible
+- Hardware-agnostic
+- Behavior-agnostic
+- Easy to integrate into any automation scenario
+
+> See the [Architecture overview](docs/architecture-overview.md) for details.
+
+## Development
+> See [Development guide](docs/development-guide.md).
+
+## Electric circuit
+> See [Circuit and specification](docs/electrical-circuit.md).
+
+## Assembly
+> See [Assembly guide](docs/assembly-guide.md).
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+Copyright (c) 2025 Alexander Suvorov
