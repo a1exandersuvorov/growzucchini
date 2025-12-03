@@ -4,7 +4,7 @@ import os
 import pytest
 from unittest.mock import AsyncMock, MagicMock, patch
 
-from katosup.core.serial import ArduinoProtocol
+from katomato.core.serial import ArduinoProtocol
 
 
 @pytest.fixture
@@ -14,13 +14,13 @@ def command_queue():
 
 @pytest.fixture
 def mock_dispatcher():
-    with patch("katosup.core.serial.controller_dispatcher") as mock:
+    with patch("katomato.core.serial.controller_dispatcher") as mock:
         yield mock
 
 
 @pytest.fixture
 def mock_get_sensor_data():
-    with patch("katosup.core.serial.get_sensor_data") as mock:
+    with patch("katomato.core.serial.get_sensor_data") as mock:
         yield mock
 
 

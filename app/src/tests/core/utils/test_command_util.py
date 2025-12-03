@@ -1,5 +1,5 @@
-from katosup.core.sensor_data import SensorData, Control
-from katosup.core.utils.command_util import build_arduino_command, get_sensor_data
+from katomato.core.sensor_data import SensorData, Control
+from katomato.core.utils.command_util import build_arduino_command, get_sensor_data
 
 
 def test_build_arduino_command():

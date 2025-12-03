@@ -1,9 +1,9 @@
 import logging
 from asyncio import Queue
 
-from katosup.config import config
-from katosup.core.registry import DEVICE_REGISTRY, Action, controller_registry
-from katosup.core.sensor_data import SensorData
+from katomato.config import config
+from katomato.core.registry import DEVICE_REGISTRY, Action, controller_registry
+from katomato.core.sensor_data import SensorData
 
 log = logging.getLogger(__name__)
 

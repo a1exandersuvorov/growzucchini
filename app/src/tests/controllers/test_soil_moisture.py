@@ -3,9 +3,9 @@ from unittest.mock import patch, AsyncMock
 
 import pytest
 
-from katosup.config import config
-from katosup.controllers.soil_moisture import SoilMoistureController
-from katosup.core.registry import Action
+from katomato.config import config
+from katomato.controllers.soil_moisture import SoilMoistureController
+from katomato.core.registry import Action
 from tests.test_utils import get_test_sensor_data
 
 

@@ -1,4 +1,4 @@
-# Katosup 
+# Katomato 
 Modular automation system for indoor plant environments, built with Arduino and Python. 
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-F2BF42.svg)](https://opensource.org/licenses/MIT)
@@ -25,7 +25,7 @@ Modular automation system for indoor plant environments, built with Arduino and 
 
 ## Project Structure
 
-- `app/`: Python application (`katosup`) that communicates with embedded devices, controls actuators, and logs data
+- `app/`: Python application (`katomato`) that communicates with embedded devices, controls actuators, and logs data
   to InfluxDB.
 - `arduino/`: PlatformIO-based firmware for Arduino-compatible boards, responsible for reading sensors and receiving
   control commands.

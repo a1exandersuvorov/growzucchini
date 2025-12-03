@@ -2,9 +2,9 @@ import json
 
 import pytest
 
-from katosup.core.registry import Action
-from katosup.core.sensor_data import Control
-from katosup.devices.linear_device import LinearDevice
+from katomato.core.registry import Action
+from katomato.core.sensor_data import Control
+from katomato.devices.linear_device import LinearDevice
 
 
 @pytest.fixture
